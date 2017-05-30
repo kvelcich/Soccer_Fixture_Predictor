@@ -126,5 +126,49 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		entry = prev_total + shots_on
 		fixture_sample.append(entry)
 
+	# -- SHOTS OFF --
+	shots_off = row[SHOTS_HOME].value - row[SHOTS_TARGET_HOME].value
+	# HOME_AVG_SHOTS_ON,
+	if home_length == 0:
+		fixture_sample.append(shots_off)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_OFF]
+		total = prev_total + shots_off
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_SHOTS_ON,
+	fixture_sample.append(shots_off)
+	# HOME_L5_SHOTS_ON,
+	if home_length == 0:
+		fixture_sample.append(shots_off)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_OFF]
+		entry = prev_total + shots_off
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_SHOTS_OFF]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_SHOTS_OFF]
+		entry = l5_total - l5_game + shots_off
+		fixture_sample.append(entry)
+	# HOME_L10_SHOTS_ON,
+	if home_length == 0:
+		fixture_sample.append(shots_off)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_OFF]
+		entry = prev_total + shots_off
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_SHOTS_OFF]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_SHOTS_OFF]
+		entry = l10_total - l10_game + shots_off
+		fixture_sample.append(entry)
+	# HOME_SEASON_SHOTS_ON,
+	if home_length == 0:
+		fixture_sample.append(shots_off)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_OFF]
+		entry = prev_total + shots_off
+		fixture_sample.append(entry)
+
 	print idx, ' ', fixture_sample
 	fixture_data[home].append(fixture_sample)

@@ -79,6 +79,5 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		entry = prev_total + row[FT_GOALS_HOME].value
 		fixture_sample.append(entry)
 
-	#??
 	print idx, ' ', fixture_sample
 	fixture_data[home].append(fixture_sample)

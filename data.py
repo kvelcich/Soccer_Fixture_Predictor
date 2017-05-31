@@ -82,6 +82,50 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		entry = prev_total + goals_scored
 		fixture_sample.append(entry)
 
+	# -- HALFTIME GOALS --
+	goals_scored_ht = row[HT_GOALS_HOME].value
+	# HOME_AVG_GOALS_HT,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_ht)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_HT]
+		total = prev_total + goals_scored_ht
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_GOALS_HT,
+	fixture_sample.append(goals_scored_ht)
+	# HOME_L5_GOALS_HT,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_ht)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_HT]
+		entry = prev_total + goals_scored_ht
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_GOALS_HT]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_GOALS_HT]
+		entry = l5_total - l5_game + goals_scored_ht
+		fixture_sample.append(entry)
+	# HOME_L10_GOALS_HT,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_ht)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_HT]
+		entry = prev_total + goals_scored_ht
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_GOALS_HT]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_GOALS_HT]
+		entry = l10_total - l10_game + goals_scored_ht
+		fixture_sample.append(entry)
+	# HOME_SEASON_GOALS_HT,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_ht)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_HT]
+		entry = prev_total + goals_scored_ht
+		fixture_sample.append(entry)
+
 	# -- SHOTS ON --
 	shots_on = row[SHOTS_TARGET_HOME].value
 	# HOME_AVG_SHOTS_ON,
@@ -657,4 +701,5 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 	''' ===== ===== ===== ===== ===== '''
 
 	print idx, ' ', fixture_sample
+	print ''
 	fixture_data[home].append(fixture_sample)

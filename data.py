@@ -302,6 +302,51 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		entry = prev_total + yellows
 		fixture_sample.append(entry)
 
+	# -- REDS --
+	reds = row[REDS_HOME].value
+	# HOME_AVG_REDS,
+	if home_length == 0:
+		fixture_sample.append(reds)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_REDS]
+		total = prev_total + reds
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_REDS,
+	fixture_sample.append(reds)
+	# HOME_L5_REDS,
+	if home_length == 0:
+		fixture_sample.append(reds)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_REDS]
+		entry = prev_total + reds
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_REDS]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_REDS]
+		entry = l5_total - l5_game + reds
+		fixture_sample.append(entry)
+	# HOME_L10_REDS,
+	if home_length == 0:
+		fixture_sample.append(reds)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_REDS]
+		entry = prev_total + reds
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_REDS]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_REDS]
+		entry = l10_total - l10_game + reds
+		fixture_sample.append(entry)
+	# HOME_SEASON_REDS,
+	if home_length == 0:
+		fixture_sample.append(reds)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_REDS]
+		entry = prev_total + reds
+		fixture_sample.append(entry)
+
+
 	''' ===== ===== ===== ===== ===== '''
 
 	print idx, ' ', fixture_sample

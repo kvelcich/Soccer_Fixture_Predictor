@@ -434,6 +434,50 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		entry = prev_total + goals_scored_against
 		fixture_sample.append(entry)
 
+	# -- HALFTIME GOALS AGAINST --
+	goals_scored_ht_against = row[HT_GOALS_AWAY].value
+	# HOME_AVG_GOALS_HT_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_ht_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_HT_AGAINST]
+		total = prev_total + goals_scored_ht_against
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_GOALS_HT_AGAINST,
+	fixture_sample.append(goals_scored_ht_against)
+	# HOME_L5_GOALS_HT_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_ht_against)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_HT_AGAINST]
+		entry = prev_total + goals_scored_ht_against
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_GOALS_HT_AGAINST]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_GOALS_HT_AGAINST]
+		entry = l5_total - l5_game + goals_scored_ht_against
+		fixture_sample.append(entry)
+	# HOME_L10_GOALS_HT_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_ht_against)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_HT_AGAINST]
+		entry = prev_total + goals_scored_ht_against
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_GOALS_HT_AGAINST]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_GOALS_HT_AGAINST]
+		entry = l10_total - l10_game + goals_scored_ht_against
+		fixture_sample.append(entry)
+	# HOME_SEASON_GOALS_HT_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_ht_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_HT_AGAINST]
+		entry = prev_total + goals_scored_ht_against
+		fixture_sample.append(entry)
+
 	# -- SHOTS ON AGAINST --
 	shots_on_against = row[SHOTS_TARGET_AWAY].value
 	# HOME_AVG_SHOTS_ON_AGAINST,
@@ -698,8 +742,143 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		entry = prev_total + reds_against
 		fixture_sample.append(entry)
 
+	# -- FORM --
+	if row[FT_RESULT].value == 'H':
+		form = 3
+	elif row[FT_RESULT].value == 'D':
+		form = 1
+	else:
+		form = 0
+	# HOME_AVG_FORM,
+	if home_length == 0:
+		fixture_sample.append(form)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FORM]
+		total = prev_total + form
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_FORM,
+	fixture_sample.append(form)
+	# HOME_L5_FORM,
+	if home_length == 0:
+		fixture_sample.append(form)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FORM]
+		entry = prev_total + form
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_FORM]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_FORM]
+		entry = l5_total - l5_game + form
+		fixture_sample.append(entry)
+	# HOME_L10_FORM,
+	if home_length == 0:
+		fixture_sample.append(form)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FORM]
+		entry = prev_total + form
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_FORM]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_FORM]
+		entry = l10_total - l10_game + form
+		fixture_sample.append(entry)
+	# HOME_SEASON_FORM,
+	if home_length == 0:
+		fixture_sample.append(form)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FORM]
+		entry = prev_total + form
+		fixture_sample.append(entry)
+
+	# --- PERCENTAGE ---
+	# HOME_TOTAL_WIN
+	if home_length == 0:
+		if form == 3:
+			fixture_sample.append(1.0)
+		else:
+			fixture_sample.append(0.0)
+	else:
+		fixture = 0.0
+		if form == 3:
+			fixture = 1.0
+		prev_total = fixture_data[home][home_length - 1][HOME_TOTAL_WIN]
+		entry = prev_total + fixture
+		fixture_sample.append(entry)
+	# HOME_TOTAL_TIE
+	if home_length == 0:
+		if form == 1:
+			fixture_sample.append(1.0)
+		else:
+			fixture_sample.append(0.0)
+	else:
+		fixture = 0.0
+		if form == 1:
+			fixture = 1.0
+		prev_total = fixture_data[home][home_length - 1][HOME_TOTAL_TIE]
+		entry = prev_total + fixture
+		fixture_sample.append(entry)
+	# HOME_TOTAL_LOSE
+	if home_length == 0:
+		if form == 0:
+			fixture_sample.append(1.0)
+		else:
+			fixture_sample.append(0.0)
+	else:
+		fixture = 0.0
+		if form == 0:
+			fixture = 1.0
+		prev_total = fixture_data[home][home_length - 1][HOME_TOTAL_LOSE]
+		entry = prev_total + fixture
+		fixture_sample.append(entry)
+	# HOME_PERCENTAGE_WIN
+	if home_length == 0:
+		if form == 3:
+			fixture_sample.append(1.0)
+		else:
+			fixture_sample.append(0.0)
+	else:
+		fixture = 0.0
+		if form == 3:
+			fixture = 1.0
+		prev_total = fixture_data[home][home_length - 1][HOME_TOTAL_WIN]
+		total = prev_total + fixture
+		entry = total / (len(fixture_data[home]) + 1.0)
+		fixture_sample.append(entry)
+	# HOME_PERCENTAGE_TIE
+	if home_length == 0:
+		if form == 1:
+			fixture_sample.append(1.0)
+		else:
+			fixture_sample.append(0.0)
+	else:
+		fixture = 0.0
+		if form == 1:
+			fixture = 1.0
+		prev_total = fixture_data[home][home_length - 1][HOME_TOTAL_TIE]
+		total = prev_total + fixture
+		entry = total / (len(fixture_data[home]) + 1.0)
+		fixture_sample.append(entry)
+	# HOME_PERCENTAGE_LOSE
+	if home_length == 0:
+		if form == 0:
+			fixture_sample.append(1.0)
+		else:
+			fixture_sample.append(0.0)
+	else:
+		fixture = 0.0
+		if form == 0:
+			fixture = 1.0
+		prev_total = fixture_data[home][home_length - 1][HOME_TOTAL_LOSE]
+		total = prev_total + fixture
+		entry = total / (len(fixture_data[home]) + 1.0)
+		fixture_sample.append(entry)
+
+	# --- HOME ---
+	fixture_sample.append(1)
+
 	''' ===== ===== ===== ===== ===== '''
 
-	print idx, ' ', fixture_sample
+	print idx, ' ', fixture_sample[HOME_ID], ' ', fixture_sample[HOME_L1_FORM], ' ', fixture_sample[HOME_PERCENTAGE_WIN]
 	print ''
 	fixture_data[home].append(fixture_sample)

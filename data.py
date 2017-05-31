@@ -258,5 +258,51 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		entry = prev_total + fouls
 		fixture_sample.append(entry)
 
+	# -- YELLOWS --
+	yellows = row[YELLOWS_HOME].value
+	# HOME_AVG_YELLOWS,
+	if home_length == 0:
+		fixture_sample.append(yellows)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_YELLOWS]
+		total = prev_total + yellows
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_YELLOWS,
+	fixture_sample.append(yellows)
+	# HOME_L5_YELLOWS,
+	if home_length == 0:
+		fixture_sample.append(yellows)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_YELLOWS]
+		entry = prev_total + yellows
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_YELLOWS]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_YELLOWS]
+		entry = l5_total - l5_game + yellows
+		fixture_sample.append(entry)
+	# HOME_L10_YELLOWS,
+	if home_length == 0:
+		fixture_sample.append(yellows)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_YELLOWS]
+		entry = prev_total + yellows
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_YELLOWS]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_YELLOWS]
+		entry = l10_total - l10_game + yellows
+		fixture_sample.append(entry)
+	# HOME_SEASON_YELLOWS,
+	if home_length == 0:
+		fixture_sample.append(yellows)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_YELLOWS]
+		entry = prev_total + yellows
+		fixture_sample.append(entry)
+
+	''' ===== ===== ===== ===== ===== '''
+
 	print idx, ' ', fixture_sample
 	fixture_data[home].append(fixture_sample)

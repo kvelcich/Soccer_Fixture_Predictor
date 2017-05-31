@@ -346,6 +346,313 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		entry = prev_total + reds
 		fixture_sample.append(entry)
 
+	# -- GOALS AGAINST --
+	goals_scored_against = row[FT_GOALS_AWAY].value
+	# HOME_AVG_GOALS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_AGAINST]
+		total = prev_total + goals_scored_against
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_GOALS_AGAINST,
+	fixture_sample.append(goals_scored_against)
+	# HOME_L5_GOALS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_against)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_AGAINST]
+		entry = prev_total + goals_scored_against
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_GOALS_AGAINST]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_GOALS_AGAINST]
+		entry = l5_total - l5_game + goals_scored_against
+		fixture_sample.append(entry)
+	# HOME_L10_GOALS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_against)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_AGAINST]
+		entry = prev_total + goals_scored_against
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_GOALS_AGAINST]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_GOALS_AGAINST]
+		entry = l10_total - l10_game + goals_scored_against
+		fixture_sample.append(entry)
+	# HOME_SEASON_GOALS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(goals_scored_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_GOALS_AGAINST]
+		entry = prev_total + goals_scored_against
+		fixture_sample.append(entry)
+
+	# -- SHOTS ON AGAINST --
+	shots_on_against = row[SHOTS_TARGET_AWAY].value
+	# HOME_AVG_SHOTS_ON_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(shots_on_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_ON_AGAINST]
+		total = prev_total + shots_on_against
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_SHOTS_ON_AGAINST,
+	fixture_sample.append(shots_on_against)
+	# HOME_L5_SHOTS_ON_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(shots_on_against)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_ON_AGAINST]
+		entry = prev_total + shots_on_against
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_SHOTS_ON_AGAINST]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_SHOTS_ON_AGAINST]
+		entry = l5_total - l5_game + shots_on_against
+		fixture_sample.append(entry)
+	# HOME_L10_SHOTS_ON_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(shots_on_against)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_ON_AGAINST]
+		entry = prev_total + shots_on_against
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_SHOTS_ON_AGAINST]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_SHOTS_ON_AGAINST]
+		entry = l10_total - l10_game + shots_on_against
+		fixture_sample.append(entry)
+	# HOME_SEASON_SHOTS_ON_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(shots_on_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_ON_AGAINST]
+		entry = prev_total + shots_on_against
+		fixture_sample.append(entry)
+
+	# -- SHOTS OFF AGAINST --
+	shots_off_against = row[SHOTS_AWAY].value - row[SHOTS_TARGET_AWAY].value
+	# HOME_AVG_SHOTS_OFF_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(shots_off_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_OFF_AGAINST]
+		total = prev_total + shots_off_against
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_SHOTS_OFF_AGAINST,
+	fixture_sample.append(shots_off_against)
+	# HOME_L5_SHOTS_OFF_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(shots_off_against)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_OFF_AGAINST]
+		entry = prev_total + shots_off_against
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_SHOTS_OFF_AGAINST]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_SHOTS_OFF_AGAINST]
+		entry = l5_total - l5_game + shots_off_against
+		fixture_sample.append(entry)
+	# HOME_L10_SHOTS_OFF_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(shots_off_against)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_OFF_AGAINST]
+		entry = prev_total + shots_off_against
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_SHOTS_OFF_AGAINST]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_SHOTS_OFF_AGAINST]
+		entry = l10_total - l10_game + shots_off_against
+		fixture_sample.append(entry)
+	# HOME_SEASON_SHOTS_OFF_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(shots_off_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_SHOTS_OFF_AGAINST]
+		entry = prev_total + shots_off_against
+		fixture_sample.append(entry)
+
+	# -- CORNERS AGAINST --
+	corners_against = row[CORNERS_AWAY].value
+	# HOME_AVG_CORNERS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(corners_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_CORNERS_AGAINST]
+		total = prev_total + corners_against
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_CORNERS_AGAINST,
+	fixture_sample.append(corners_against)
+	# HOME_L5_CORNERS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(corners_against)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_CORNERS_AGAINST]
+		entry = prev_total + corners_against
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_CORNERS_AGAINST]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_CORNERS_AGAINST]
+		entry = l5_total - l5_game + corners_against
+		fixture_sample.append(entry)
+	# HOME_L10_CORNERS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(corners_against)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_CORNERS_AGAINST]
+		entry = prev_total + corners_against
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_CORNERS_AGAINST]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_CORNERS_AGAINST]
+		entry = l10_total - l10_game + corners_against
+		fixture_sample.append(entry)
+	# HOME_SEASON_CORNERS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(corners_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_CORNERS_AGAINST]
+		entry = prev_total + corners_against
+		fixture_sample.append(entry)
+
+	# -- FOULS AGAINST --
+	fouls_against = row[FOULS_AWAY].value
+	# HOME_AVG_FOULS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(fouls_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FOULS_AGAINST]
+		total = prev_total + fouls_against
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_FOULS_AGAINST,
+	fixture_sample.append(fouls_against)
+	# HOME_L5_FOULS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(fouls_against)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FOULS_AGAINST]
+		entry = prev_total + fouls_against
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_FOULS_AGAINST]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_FOULS_AGAINST]
+		entry = l5_total - l5_game + fouls_against
+		fixture_sample.append(entry)
+	# HOME_L10_FOULS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(fouls_against)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FOULS_AGAINST]
+		entry = prev_total + fouls_against
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_FOULS_AGAINST]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_FOULS_AGAINST]
+		entry = l10_total - l10_game + fouls_against
+		fixture_sample.append(entry)
+	# HOME_SEASON_FOULS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(fouls_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FOULS_AGAINST]
+		entry = prev_total + fouls_against
+		fixture_sample.append(entry)
+
+	# -- YELLOWS AGAINST --
+	yellows_against = row[YELLOWS_AWAY].value
+	# HOME_AVG_YELLOWS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(yellows_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_YELLOWS_AGAINST]
+		total = prev_total + yellows_against
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_YELLOWS_AGAINST,
+	fixture_sample.append(yellows_against)
+	# HOME_L5_YELLOWS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(yellows_against)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_YELLOWS_AGAINST]
+		entry = prev_total + yellows_against
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_YELLOWS_AGAINST]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_YELLOWS_AGAINST]
+		entry = l5_total - l5_game + yellows_against
+		fixture_sample.append(entry)
+	# HOME_L10_YELLOWS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(yellows_against)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_YELLOWS_AGAINST]
+		entry = prev_total + yellows_against
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_YELLOWS_AGAINST]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_YELLOWS_AGAINST]
+		entry = l10_total - l10_game + yellows_against
+		fixture_sample.append(entry)
+	# HOME_SEASON_YELLOWS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(yellows_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_YELLOWS_AGAINST]
+		entry = prev_total + yellows_against
+		fixture_sample.append(entry)
+
+	# -- REDS AGAINST --
+	reds_against = row[REDS_AWAY].value
+	# HOME_AVG_REDS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(reds_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_REDS_AGAINST]
+		total = prev_total + reds_against
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_REDS_AGAINST,
+	fixture_sample.append(reds_against)
+	# HOME_L5_REDS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(reds_against)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_REDS_AGAINST]
+		entry = prev_total + reds_against
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_REDS_AGAINST]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_REDS_AGAINST]
+		entry = l5_total - l5_game + reds_against
+		fixture_sample.append(entry)
+	# HOME_L10_REDS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(reds_against)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_REDS_AGAINST]
+		entry = prev_total + reds_against
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_REDS_AGAINST]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_REDS_AGAINST]
+		entry = l10_total - l10_game + reds_against
+		fixture_sample.append(entry)
+	# HOME_SEASON_REDS_AGAINST,
+	if home_length == 0:
+		fixture_sample.append(reds_against)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_REDS_AGAINST]
+		entry = prev_total + reds_against
+		fixture_sample.append(entry)
 
 	''' ===== ===== ===== ===== ===== '''
 

@@ -180,9 +180,9 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		total = prev_total + corners
 		entry = total / (home_length + 1)
 		fixture_sample.append(entry)
-	# HOME_L1_SHOTS_OFF,
+	# HOME_L1_CORNERS,
 	fixture_sample.append(corners)
-	# HOME_L5_SHOTS_OFF,
+	# HOME_L5_CORNERS,
 	if home_length == 0:
 		fixture_sample.append(corners)
 	elif home_length < 5:
@@ -194,7 +194,7 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		l5_game = fixture_data[home][home_length - 5][HOME_L1_CORNERS]
 		entry = l5_total - l5_game + corners
 		fixture_sample.append(entry)
-	# HOME_L10_SHOTS_OFF,
+	# HOME_L10_CORNERS,
 	if home_length == 0:
 		fixture_sample.append(corners)
 	elif home_length < 10:
@@ -206,12 +206,56 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 		l10_game = fixture_data[home][home_length - 10][HOME_L1_CORNERS]
 		entry = l10_total - l10_game + corners
 		fixture_sample.append(entry)
-	# HOME_SEASON_SHOTS_OFF,
+	# HOME_SEASON_CORNERS,
 	if home_length == 0:
 		fixture_sample.append(corners)
 	else:
 		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_CORNERS]
 		entry = prev_total + corners
+		fixture_sample.append(entry)
+
+	# -- FOULS --
+	fouls = row[FOULS_HOME].value
+	# HOME_AVG_FOULS,
+	if home_length == 0:
+		fixture_sample.append(fouls)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FOULS]
+		total = prev_total + fouls
+		entry = total / (home_length + 1)
+		fixture_sample.append(entry)
+	# HOME_L1_FOULS,
+	fixture_sample.append(fouls)
+	# HOME_L5_FOULS,
+	if home_length == 0:
+		fixture_sample.append(fouls)
+	elif home_length < 5:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FOULS]
+		entry = prev_total + fouls
+		fixture_sample.append(entry)
+	else:
+		l5_total = fixture_data[home][home_length - 1][HOME_L5_FOULS]
+		l5_game = fixture_data[home][home_length - 5][HOME_L1_FOULS]
+		entry = l5_total - l5_game + fouls
+		fixture_sample.append(entry)
+	# HOME_L10_FOULS,
+	if home_length == 0:
+		fixture_sample.append(fouls)
+	elif home_length < 10:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FOULS]
+		entry = prev_total + fouls
+		fixture_sample.append(entry)
+	else:
+		l10_total = fixture_data[home][home_length - 1][HOME_L10_FOULS]
+		l10_game = fixture_data[home][home_length - 10][HOME_L1_FOULS]
+		entry = l10_total - l10_game + fouls
+		fixture_sample.append(entry)
+	# HOME_SEASON_FOULS,
+	if home_length == 0:
+		fixture_sample.append(fouls)
+	else:
+		prev_total = fixture_data[home][home_length - 1][HOME_SEASON_FOULS]
+		entry = prev_total + fouls
 		fixture_sample.append(entry)
 
 	print idx, ' ', fixture_sample

@@ -139,54 +139,24 @@ for idx, row_idx in enumerate(range(1, sheet.nrows)):
 
 	# --- PERCENTAGE ---
 	# TOTAL_WIN
-	if home_length == 0:
-		if form == 3:
-			fixture_sample.append(1.0)
-		else:
-			fixture_sample.append(0.0)
-	else:
-		fixture = 0.0
-		if form == 3:
-			fixture = 1.0
-		prev_total = fixture_data[home][home_length - 1][TOTAL_WIN]
-		entry = prev_total + fixture
-		fixture_sample.append(entry)
+	entry = TOTAL_RESULT(fixture_data[home], form, TOTAL_WIN, 3)
+	fixture_sample.append(entry)
 	# TOTAL_TIE
-	if home_length == 0:
-		if form == 1:
-			fixture_sample.append(1.0)
-		else:
-			fixture_sample.append(0.0)
-	else:
-		fixture = 0.0
-		if form == 1:
-			fixture = 1.0
-		prev_total = fixture_data[home][home_length - 1][TOTAL_TIE]
-		entry = prev_total + fixture
-		fixture_sample.append(entry)
+	entry = TOTAL_RESULT(fixture_data[home], form, TOTAL_TIE, 1)
+	fixture_sample.append(entry)
 	# TOTAL_LOSE
-	if home_length == 0:
-		if form == 0:
-			fixture_sample.append(1.0)
-		else:
-			fixture_sample.append(0.0)
-	else:
-		fixture = 0.0
-		if form == 0:
-			fixture = 1.0
-		prev_total = fixture_data[home][home_length - 1][TOTAL_LOSE]
-		entry = prev_total + fixture
-		fixture_sample.append(entry)
+	entry = TOTAL_RESULT(fixture_data[home], form, TOTAL_LOSE, 0)
+	fixture_sample.append(entry)
 	# PERCENTAGE_WIN
 	if home_length == 0:
 		if form == 3:
-			fixture_sample.append(1.0)
+			fixture_sample.append(1)
 		else:
-			fixture_sample.append(0.0)
+			fixture_sample.append(0)
 	else:
-		fixture = 0.0
+		fixture = 0
 		if form == 3:
-			fixture = 1.0
+			fixture = 1
 		prev_total = fixture_data[home][home_length - 1][TOTAL_WIN]
 		total = prev_total + fixture
 		entry = total / (len(fixture_data[home]) + 1.0)

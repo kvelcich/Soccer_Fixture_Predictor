@@ -44,3 +44,21 @@ def SEASON(data, param, TOTAL):
 		return param
 	else:
 		return data[length - 1][TOTAL] + param
+
+def TOTAL_RESULT(data, form, TOTAL, value):
+	length = len(data)
+
+	if length == 0:
+		return int(form == value)
+	else:
+		return data[length - 1][TOTAL] + (form == value)
+
+def PERCENTAGE_RESULT(data, form, TOTAL, value):
+	length = len(data)
+
+	if length == 0:
+		return int(form == value)
+	else:
+		total = data[length - 1][TOTAL] + form == value
+		entry = total / (length + 1.0)
+		return entry

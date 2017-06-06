@@ -47,7 +47,6 @@ for sheet in List.sheets:
 
 print 'Data Scraped\n'
 
-print len(x)
 print 'Converting...'
 x = numpy.array(x)
 print 'Normalizing data'
@@ -59,18 +58,17 @@ for j in range(len(x[0])):
 	x[j] /= stand_dev
 print 'Data Normalized\n'
 
-print 'Transforming Data'
-poly = PolynomialFeatures(degree=2)
-x_ = poly.fit_transform(x)
-print 'Data transformed\n'
-
-print 'Fitting data'
-clf = linear_model.LinearRegression()
-clf.fit(x_[0:60000,:], y[0:60000])
-print 'Data fit\n'
-
-print 'Predicting...'
-y_predict = clf.predict(x_[60000:61404,:])
-print y_predict
-
-#print x_[0:500,:].shape
+# --- Polynomial Regression ---
+# print 'Transforming Data'
+# poly = PolynomialFeatures(degree=2)
+# x_ = poly.fit_transform(x)
+# print 'Data transformed\n'
+#
+# print 'Fitting data'
+# clf = linear_model.LinearRegression()
+# clf.fit(x_[0:60000,:], y[0:60000])
+# print 'Data fit\n'
+#
+# print 'Predicting...'
+# y_predict = clf.predict(x_[60000:61404,:])
+# print y_predict

@@ -34,6 +34,7 @@ def scrape(file):
 	fixture_data = []
 	game_ID = 1
 	game_list = []
+	match_data = []
 
 	data = xlrd.open_workbook(file)
 
@@ -130,9 +131,20 @@ def scrape(file):
 			game_sample.append(away)
 			game_list.append(game_sample)
 
-			#print team_IDs[home], ' vs ', team_IDs[away]
+			if len(fixture_data[home]) and len(fixture_data[away]) >= 5:
+				home_game = fixture_data[home][-1]
+				home_game[-2] = 1.0
+				home_game.append(row[FT_GOALS_HOME].value)
+				away_game = fixture_data[away][-1]
+				away_game[-2] = 0.0
+				away_game.append(row[FT_GOALS_AWAY].value)
+
+				match_data.append(home_game)
+				match_data.append(away_game)
+
+
 			fixture_data[home].append(extract_data_home(fixture_data, home, row, game_ID, TEAM_HOME, TEAM_AWAY, FT_GOALS_HOME, FT_GOALS_AWAY, FT_RESULT, HT_GOALS_HOME, HT_GOALS_AWAY, HT_RESULT, SHOTS_HOME, SHOTS_AWAY, SHOTS_TARGET_HOME, SHOTS_TARGET_AWAY, FOULS_HOME, FOULS_AWAY, CORNERS_HOME, CORNERS_AWAY, YELLOWS_HOME, YELLOWS_AWAY, REDS_HOME, REDS_AWAY))
 			fixture_data[away].append(extract_data_away(fixture_data, away, row, game_ID, TEAM_HOME, TEAM_AWAY, FT_GOALS_HOME, FT_GOALS_AWAY, FT_RESULT, HT_GOALS_HOME, HT_GOALS_AWAY, HT_RESULT, SHOTS_HOME, SHOTS_AWAY, SHOTS_TARGET_HOME, SHOTS_TARGET_AWAY, FOULS_HOME, FOULS_AWAY, CORNERS_HOME, CORNERS_AWAY, YELLOWS_HOME, YELLOWS_AWAY, REDS_HOME, REDS_AWAY))
 
 			game_ID += 1
-	return fixture_data
+	return match_data

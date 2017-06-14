@@ -1,6 +1,14 @@
 import numpy
 from Data import table
 
+def simple_reduction(data):
+	del data[13]
+	del data[3]
+	del data[2]
+	del data[1]
+	del data[0]
+	a=1
+
 def reduce_params(data):
 	del data[table.GOALS]
 	del data[table.GAME_ID]
@@ -27,9 +35,9 @@ def reduce_params(data):
 
 	del data[table.SEASON_FOULS_AGAINST]
 	del data[table.L10_FOULS_AGAINST]
-	# del data[table.L5_FOULS_AGAINST]
-	# del data[table.L1_FOULS_AGAINST]
-	# del data[table.AVG_FOULS_AGAINST]
+	del data[table.L5_FOULS_AGAINST]
+	del data[table.L1_FOULS_AGAINST]
+	del data[table.AVG_FOULS_AGAINST]
 
 	del data[table.SEASON_CORNERS_AGAINST]
 	del data[table.L10_CORNERS_AGAINST]
@@ -48,9 +56,9 @@ def reduce_params(data):
 
 	del data[table.SEASON_GOALS_HT_AGAINST]
 	del data[table.L10_GOALS_HT_AGAINST]
-	del data[table.L5_GOALS_HT_AGAINST]
-	del data[table.L1_GOALS_HT_AGAINST]
-	del data[table.AVG_GOALS_HT_AGAINST]
+	# del data[table.L5_GOALS_HT_AGAINST]
+	# del data[table.L1_GOALS_HT_AGAINST]
+	# del data[table.AVG_GOALS_HT_AGAINST]
 
 	del data[table.SEASON_GOALS_AGAINST]
 	del data[table.L10_GOALS_AGAINST]
@@ -69,9 +77,9 @@ def reduce_params(data):
 
 	del data[table.SEASON_FOULS]
 	del data[table.L10_FOULS]
-	# del data[table.L5_FOULS]
-	# del data[table.L1_FOULS]
-	# del data[table.AVG_FOULS]
+	del data[table.L5_FOULS]
+	del data[table.L1_FOULS]
+	del data[table.AVG_FOULS]
 
 	del data[table.SEASON_CORNERS]
 	del data[table.L10_CORNERS]
@@ -90,9 +98,9 @@ def reduce_params(data):
 
 	del data[table.SEASON_GOALS_HT]
 	del data[table.L10_GOALS_HT]
-	del data[table.L5_GOALS_HT]
-	del data[table.L1_GOALS_HT]
-	del data[table.AVG_GOALS_HT]
+	# del data[table.L5_GOALS_HT]
+	# del data[table.L1_GOALS_HT]
+	# del data[table.AVG_GOALS_HT]
 
 	del data[table.SEASON_GOALS]
 	del data[table.L10_GOALS]

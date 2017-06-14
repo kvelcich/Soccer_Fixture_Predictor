@@ -1,5 +1,165 @@
 from table import *
 
+def simple_extract_data_home(data, team, row, game_ID, TEAM_HOME, TEAM_AWAY, FT_GOALS_HOME, FT_GOALS_AWAY, FT_RESULT):
+	ID_TEAM = 0
+	ID_OR = 1
+	ID_AR = 2
+	ID_DR = 3
+	ID_F = 4
+	ID_AF = 5
+	ID_DF = 6
+	ID_WR = 7
+	ID_TR = 8
+	ID_LR = 9
+	ID_A_OR = 10
+	ID_A_AR = 11
+	ID_A_DR = 12
+
+	team_data = data[team]
+	length = len(team_data)
+	if row[FT_RESULT].value == 'H':
+		form = 3.0
+	elif row[FT_RESULT].value == 'D':
+		form = 1.0
+	else:
+		form = 0.0
+
+	sample = []
+	sample.append(team)
+
+	if length == 0.0:
+		sample.append(form) # Overall rating
+		sample.append(row[FT_GOALS_HOME].value) # Attacking rating
+		sample.append(row[FT_GOALS_AWAY].value) # Defensive Rating
+		sample.append(form) # form
+		sample.append(row[FT_GOALS_HOME].value) # Attacking form
+		sample.append(row[FT_GOALS_AWAY].value) # Defensive form
+		if form == 3.0:
+			sample.append(1.0)
+			sample.append(0.0)
+			sample.append(0.0)
+		elif form == 1.0:
+			sample.append(0.0)
+			sample.append(1.0)
+			sample.append(0.0)
+		else:
+			sample.append(0.0)
+			sample.append(0.0)
+			sample.append(1.0)
+		sample.append(form) # Overall rating
+		sample.append(row[FT_GOALS_HOME].value) # Attacking rating
+		sample.append(row[FT_GOALS_AWAY].value) # Defensive Rating
+
+	else:
+		sample.append(team_data[length - 1][ID_OR] + form)
+		sample.append(team_data[length - 1][ID_AR] + row[FT_GOALS_HOME].value)
+		sample.append(team_data[length - 1][ID_DR] + row[FT_GOALS_AWAY].value)
+		if length >= 5:
+			sample.append(team_data[length - 1][ID_OR] - team_data[length - 5][ID_OR] + form)
+			sample.append(team_data[length - 1][ID_AR] - team_data[length - 5][ID_AR] + row[FT_GOALS_HOME].value)
+			sample.append(team_data[length - 1][ID_DR] - team_data[length - 5][ID_DR] + row[FT_GOALS_AWAY].value)
+		else:
+			sample.append(team_data[length - 1][ID_OR] + form)
+			sample.append(team_data[length - 1][ID_AR] + row[FT_GOALS_HOME].value)
+			sample.append(team_data[length - 1][ID_DR] + row[FT_GOALS_AWAY].value)
+		if form == 3:
+			sample.append((team_data[length - 1][ID_WR] * length + 1.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_TR] * length + 0.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_LR] * length + 0.0) / (length + 1.0))
+		elif form == 1:
+			sample.append((team_data[length - 1][ID_WR] * length + 0.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_TR] * length + 1.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_LR] * length + 0.0) / (length + 1.0))
+		else:
+			sample.append((team_data[length - 1][ID_WR] * length + 0.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_TR] * length + 0.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_LR] * length + 1.0) / (length + 1.0))
+		sample.append((team_data[length - 1][ID_OR] + form) / length + 1) # Overall rating
+		sample.append((team_data[length - 1][ID_AR] + row[FT_GOALS_HOME].value) / length + 1.0) # Attacking rating
+		sample.append((team_data[length - 1][ID_DR] + row[FT_GOALS_AWAY].value) / length + 1.0) # Defensive Rating
+
+	return sample
+
+def simple_extract_data_away(data, team, row, game_ID, TEAM_HOME, TEAM_AWAY, FT_GOALS_HOME, FT_GOALS_AWAY, FT_RESULT):
+	ID_TEAM = 0
+	ID_OR = 1
+	ID_AR = 2
+	ID_DR = 3
+	ID_F = 4
+	ID_AF = 5
+	ID_DF = 6
+	ID_WR = 7
+	ID_TR = 8
+	ID_LR = 9
+	ID_A_OR = 10
+	ID_A_AR = 11
+	ID_A_DR = 12
+
+	team_data = data[team]
+	length = len(team_data)
+	if row[FT_RESULT].value == 'A':
+		form = 3.0
+	elif row[FT_RESULT].value == 'D':
+		form = 1.0
+	else:
+		form = 0.0
+
+	sample = []
+	sample.append(team)
+
+	if length == 0:
+		sample.append(form) # Overall rating
+		sample.append(row[FT_GOALS_AWAY].value) # Attacking rating
+		sample.append(row[FT_GOALS_HOME].value) # Defensive Rating
+		sample.append(form) # form
+		sample.append(row[FT_GOALS_AWAY].value) # Attacking form
+		sample.append(row[FT_GOALS_HOME].value) # Defensive form
+		if form == 3:
+			sample.append(1.0)
+			sample.append(0.0)
+			sample.append(0.0)
+		elif form == 1:
+			sample.append(0.0)
+			sample.append(1.0)
+			sample.append(0.0)
+		else:
+			sample.append(0.0)
+			sample.append(0.0)
+			sample.append(1.0)
+		sample.append(form) # Overall rating
+		sample.append(row[FT_GOALS_AWAY].value) # Attacking rating
+		sample.append(row[FT_GOALS_HOME].value) # Defensive Rating
+
+	else:
+		sample.append(team_data[length - 1][ID_OR] + form)
+		sample.append(team_data[length - 1][ID_AR] + row[FT_GOALS_AWAY].value)
+		sample.append(team_data[length - 1][ID_DR] + row[FT_GOALS_HOME].value)
+		if length >= 5:
+			sample.append(team_data[length - 1][ID_OR] - team_data[length - 5][ID_OR] + form)
+			sample.append(team_data[length - 1][ID_AR] - team_data[length - 5][ID_AR] + row[FT_GOALS_AWAY].value)
+			sample.append(team_data[length - 1][ID_DR] - team_data[length - 5][ID_DR] + row[FT_GOALS_HOME].value)
+		else:
+			sample.append(team_data[length - 1][ID_OR] + form)
+			sample.append(team_data[length - 1][ID_AR] + row[FT_GOALS_AWAY].value)
+			sample.append(team_data[length - 1][ID_DR] + row[FT_GOALS_HOME].value)
+		if form == 3:
+			sample.append((team_data[length - 1][ID_WR] * length + 1.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_TR] * length + 0.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_LR] * length + 0.0) / (length + 1.0))
+		elif form == 1:
+			sample.append((team_data[length - 1][ID_WR] * length + 0.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_TR] * length + 1.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_LR] * length + 0.0) / (length + 1.0))
+		else:
+			sample.append((team_data[length - 1][ID_WR] * length + 0.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_TR] * length + 0.0) / (length + 1.0))
+			sample.append((team_data[length - 1][ID_LR] * length + 1.0) / (length + 1.0))
+		sample.append((team_data[length - 1][ID_OR] + form) / (length + 1.0)) # Overall rating
+		sample.append((team_data[length - 1][ID_AR] + row[FT_GOALS_AWAY].value) / (length + 1)) # Attacking rating
+		sample.append((team_data[length - 1][ID_DR] + row[FT_GOALS_HOME].value) / (length + 1)) # Defensive Rating
+
+	return sample
+
 def extract_data_home(data, team, row, game_ID, TEAM_HOME, TEAM_AWAY, FT_GOALS_HOME, FT_GOALS_AWAY, FT_RESULT, HT_GOALS_HOME, HT_GOALS_AWAY, HT_RESULT, SHOTS_HOME, SHOTS_AWAY, SHOTS_TARGET_HOME, SHOTS_TARGET_AWAY, FOULS_HOME, FOULS_AWAY, CORNERS_HOME, CORNERS_AWAY, YELLOWS_HOME, YELLOWS_AWAY, REDS_HOME, REDS_AWAY):
 	team_data = data[team]
 	length = len(team_data)

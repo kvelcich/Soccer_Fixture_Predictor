@@ -3,14 +3,11 @@ def calc_error(prediction, actual):
 	for i in range(0, len(actual), 2):
 		difference = prediction[i] - prediction[i + 1]
 
-		if abs(difference) <= 0.5:
-			if actual[i] == actual[i + 1]:
-				correct += 1
-		elif difference > 0:
+		if difference > 0:
 			if actual[i] > actual[i + 1]:
 				correct += 1
 		elif difference < 0:
 			if actual[i] < actual[i + 1]:
 				correct += 1
 
-	return correct * 1.0 / len(actual)
+	return correct * 1.0 / (len(actual) / 2)

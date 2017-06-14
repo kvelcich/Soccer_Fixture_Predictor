@@ -50,6 +50,7 @@ print 'Data Scraped\n'
 print 'Converting...'
 
 x = numpy.array(x)
+#numpy.random.shuffle(x)
 y = numpy.array(y)
 
 print 'Normalizing data'
@@ -69,7 +70,7 @@ training_size = 9 * size / 10
 if training_size % 2 == 1:
 	training_size -= 1
 
-# --- Polynomial Regression ---
+# --- Regression ---
 # print 'Transforming Data'
 # poly = PolynomialFeatures(degree=2)
 # x_ = poly.fit_transform(x)
@@ -103,7 +104,7 @@ for i in range(0, training_size, 2):
 
 	all_data.append(data_instance)
 
-# --- QDA Classification ---
+# # --- QDA Classification ---
 print 'Fitting data'
 home_qda = QDA()
 home_qda.fit(all_data, y_home)
@@ -129,25 +130,27 @@ for i in range(training_size, size, 2):
 error_rate = (correct * 1.0) / ((size - training_size) / 2)
 print 'Success rate: ', error_rate
 
-# --- Schotastic Gradient Descent
-# correct = 0
-# clf = SGDClassifier(loss="log", penalty="l2")
-# clf.fit(all_data, y_home)
-#
-# for i in range(training_size, size, 2):
-# 	inst = x[i].reshape(1,-1)
-#
-#  	ph = clf.predict(inst)
-# 	if ph == 0:
-# 		if y[i] > y[i + 1]:
-# 			correct += 1
-#
-# 	elif ph == 2:
-# 		if y[i] == y[i + 1]:
-# 			correct += 1
-# 	else:
-# 		if y[i] < y[i + 1]:
-# 			correct += 1
-#
-# error_rate = (correct * 1.0) / ((size - training_size) / 2)
-# print 'Success rate: ', error_rate
+# # --- Schotastic Gradient Descent
+correct = 0
+value=0.00000000000000000001
+print value
+clf = SGDClassifier(loss="log", penalty="l2", alpha=value, n_iter=1)
+clf.fit(all_data, y_home)
+
+for i in range(training_size, size, 2):
+	inst = x[i].reshape(1,-1)
+
+ 	ph = clf.predict(inst)
+	if ph == 0:
+		if y[i] > y[i + 1]:
+			correct += 1
+
+	elif ph == 2:
+		if y[i] == y[i + 1]:
+			correct += 1
+	else:
+		if y[i] < y[i + 1]:
+			correct += 1
+
+error_rate = (correct * 1.0) / ((size - training_size) / 2)
+print 'Success rate: ', error_rate

@@ -9,6 +9,8 @@ from Calculate import error
 from sklearn.qda import QDA
 from sklearn.linear_model import SGDClassifier
 from sklearn.preprocessing import StandardScaler
+from sklearn.ensemble import RandomForestClassifier
+from sklearn import svm
 import copy
 import math
 import numpy
@@ -61,8 +63,6 @@ for j in range(len(x[0])):
 	if stand_dev == 0:
 		stand_dev = 1
 	x[:, [j]] /= stand_dev
-# scaler = StandardScaler()
-# scaler.fit(x)
 print 'Data Normalized\n'
 
 size = len(x)
@@ -71,22 +71,22 @@ if training_size % 2 == 1:
 	training_size -= 1
 
 # --- Regression ---
-# print 'Transforming Data'
-# poly = PolynomialFeatures(degree=2)
-# x_ = poly.fit_transform(x)
-# print 'Data transformed\n'
-#
-# print 'Fitting data'
-# clf = linear_model.LinearRegression()
-# clf.fit(x_[0:training_size,:], y[0:training_size])
-# print 'Data fit\n'
-#
-# print 'Predicting...'
-# y_predict = clf.predict(x_[training_size:size,:])
-#
-# print 'Calculating error...'
-# error_rate = error.calc_error(y_predict, y[training_size:size])
-# print 'Success rate: ', error_rate
+print 'Transforming Data'
+poly = PolynomialFeatures(degree=3)
+x_ = poly.fit_transform(x)
+print 'Data transformed\n'
+
+print 'Fitting data'
+clf = linear_model.LinearRegression()
+clf.fit(x_[0:training_size,:], y[0:training_size])
+print 'Data fit\n'
+
+print 'Predicting...'
+y_predict = clf.predict(x_[training_size:size,:])
+
+print 'Calculating error...'
+error_rate = error.calc_error(y_predict, y[training_size:size])
+print 'Success rate: ', error_rate
 
 # Classification set up
 y_home = []
@@ -105,52 +105,77 @@ for i in range(0, training_size, 2):
 	all_data.append(data_instance)
 
 # # --- QDA Classification ---
-print 'Fitting data'
-home_qda = QDA()
-home_qda.fit(all_data, y_home)
+# print 'Fitting data'
+# home_qda = QDA()
+# home_qda.fit(all_data, y_home)
+#
+# correct = 0
+# print 'Predicting results: '
+# for i in range(training_size, size, 2):
+# 	inst = x[i].reshape(1,-1)
+#
+#  	ph = home_qda.predict(inst)
+#
+# 	if ph == 0:
+# 		if y[i] > y[i + 1]:
+# 			correct += 1
+#
+# 	elif ph == 2:
+# 		if y[i] == y[i + 1]:
+# 			correct += 1
+# 	else:
+# 		if y[i] < y[i + 1]:
+# 			correct += 1
+#
+# error_rate = (correct * 1.0) / ((size - training_size) / 2)
+# print 'Success rate: ', error_rate
 
-correct = 0
-print 'Predicting results: '
-for i in range(training_size, size, 2):
-	inst = x[i].reshape(1,-1)
+# # --- SVM
+# clf  =svm.SVC(kernel="sigmoid", degree=4)
+# clf.fit(all_data, y_home)
+# correct = 0
+# print 'Predicting results: '
+# for i in range(training_size, size, 2):
+# 	inst = x[i].reshape(1,-1)
+#
+#  	ph = clf.predict(inst)
+#
+# 	if ph == 0:
+# 		if y[i] > y[i + 1]:
+# 			correct += 1
+#
+# 	elif ph == 2:
+# 		if y[i] == y[i + 1]:
+# 			correct += 1
+# 	else:
+# 		if y[i] < y[i + 1]:
+# 			correct += 1
+#
+# error_rate = (correct * 1.0) / ((size - training_size) / 2)
+# print 'Success rate: ', error_rate
 
- 	ph = home_qda.predict(inst)
+# # --- RandomForestClassifier ---
+# clf = RandomForestClassifier(n_estimators=16)
+# clf = clf.fit(all_data, y_home)
+# correct = 0
+# print 'Predicting results: '
+# for i in range(training_size, size, 2):
+# 	inst = x[i].reshape(1,-1)
+#
+#  	ph = clf.predict(inst)
+#
+# 	if ph == 0:
+# 		if y[i] > y[i + 1]:
+# 			correct += 1
+#
+# 	elif ph == 2:
+# 		if y[i] == y[i + 1]:
+# 			correct += 1
+# 	else:
+# 		if y[i] < y[i + 1]:
+# 			correct += 1
+#
+# error_rate = (correct * 1.0) / ((size - training_size) / 2)
+# print 'Success rate: ', error_rate
 
-	if ph == 0:
-		if y[i] > y[i + 1]:
-			correct += 1
-
-	elif ph == 2:
-		if y[i] == y[i + 1]:
-			correct += 1
-	else:
-		if y[i] < y[i + 1]:
-			correct += 1
-
-error_rate = (correct * 1.0) / ((size - training_size) / 2)
-print 'Success rate: ', error_rate
-
-# # --- Schotastic Gradient Descent
-correct = 0
-value=0.00000000000000000001
-print value
-clf = SGDClassifier(loss="log", penalty="l2", alpha=value, n_iter=1)
-clf.fit(all_data, y_home)
-
-for i in range(training_size, size, 2):
-	inst = x[i].reshape(1,-1)
-
- 	ph = clf.predict(inst)
-	if ph == 0:
-		if y[i] > y[i + 1]:
-			correct += 1
-
-	elif ph == 2:
-		if y[i] == y[i + 1]:
-			correct += 1
-	else:
-		if y[i] < y[i + 1]:
-			correct += 1
-
-error_rate = (correct * 1.0) / ((size - training_size) / 2)
-print 'Success rate: ', error_rate
+#fix the tie difference, add home away param

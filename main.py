@@ -104,78 +104,76 @@ for i in range(0, training_size, 2):
 
 	all_data.append(data_instance)
 
-# # --- QDA Classification ---
-# print 'Fitting data'
-# home_qda = QDA()
-# home_qda.fit(all_data, y_home)
-#
-# correct = 0
-# print 'Predicting results: '
-# for i in range(training_size, size, 2):
-# 	inst = x[i].reshape(1,-1)
-#
-#  	ph = home_qda.predict(inst)
-#
-# 	if ph == 0:
-# 		if y[i] > y[i + 1]:
-# 			correct += 1
-#
-# 	elif ph == 2:
-# 		if y[i] == y[i + 1]:
-# 			correct += 1
-# 	else:
-# 		if y[i] < y[i + 1]:
-# 			correct += 1
-#
-# error_rate = (correct * 1.0) / ((size - training_size) / 2)
-# print 'Success rate: ', error_rate
+# --- QDA Classification ---
+print 'Fitting data'
+home_qda = QDA()
+home_qda.fit(all_data, y_home)
 
-# # --- SVM
-# clf  =svm.SVC(kernel="sigmoid", degree=4)
-# clf.fit(all_data, y_home)
-# correct = 0
-# print 'Predicting results: '
-# for i in range(training_size, size, 2):
-# 	inst = x[i].reshape(1,-1)
-#
-#  	ph = clf.predict(inst)
-#
-# 	if ph == 0:
-# 		if y[i] > y[i + 1]:
-# 			correct += 1
-#
-# 	elif ph == 2:
-# 		if y[i] == y[i + 1]:
-# 			correct += 1
-# 	else:
-# 		if y[i] < y[i + 1]:
-# 			correct += 1
-#
-# error_rate = (correct * 1.0) / ((size - training_size) / 2)
-# print 'Success rate: ', error_rate
+correct = 0
+print 'Predicting results: '
+for i in range(training_size, size, 2):
+	inst = x[i].reshape(1,-1)
 
-# # --- RandomForestClassifier ---
-# clf = RandomForestClassifier(n_estimators=16)
-# clf = clf.fit(all_data, y_home)
-# correct = 0
-# print 'Predicting results: '
-# for i in range(training_size, size, 2):
-# 	inst = x[i].reshape(1,-1)
-#
-#  	ph = clf.predict(inst)
-#
-# 	if ph == 0:
-# 		if y[i] > y[i + 1]:
-# 			correct += 1
-#
-# 	elif ph == 2:
-# 		if y[i] == y[i + 1]:
-# 			correct += 1
-# 	else:
-# 		if y[i] < y[i + 1]:
-# 			correct += 1
-#
-# error_rate = (correct * 1.0) / ((size - training_size) / 2)
-# print 'Success rate: ', error_rate
+ 	ph = home_qda.predict(inst)
 
-#fix the tie difference, add home away param
+	if ph == 0:
+		if y[i] > y[i + 1]:
+			correct += 1
+
+	elif ph == 2:
+		if y[i] == y[i + 1]:
+			correct += 1
+	else:
+		if y[i] < y[i + 1]:
+			correct += 1
+
+error_rate = (correct * 1.0) / ((size - training_size) / 2)
+print 'Success rate: ', error_rate
+
+# --- SVM
+clf  =svm.SVC(kernel="sigmoid", degree=4)
+clf.fit(all_data, y_home)
+correct = 0
+print 'Predicting results: '
+for i in range(training_size, size, 2):
+	inst = x[i].reshape(1,-1)
+
+ 	ph = clf.predict(inst)
+
+	if ph == 0:
+		if y[i] > y[i + 1]:
+			correct += 1
+
+	elif ph == 2:
+		if y[i] == y[i + 1]:
+			correct += 1
+	else:
+		if y[i] < y[i + 1]:
+			correct += 1
+
+error_rate = (correct * 1.0) / ((size - training_size) / 2)
+print 'Success rate: ', error_rate
+
+# --- RandomForestClassifier ---
+clf = RandomForestClassifier(n_estimators=16)
+clf = clf.fit(all_data, y_home)
+correct = 0
+print 'Predicting results: '
+for i in range(training_size, size, 2):
+	inst = x[i].reshape(1,-1)
+
+ 	ph = clf.predict(inst)
+
+	if ph == 0:
+		if y[i] > y[i + 1]:
+			correct += 1
+
+	elif ph == 2:
+		if y[i] == y[i + 1]:
+			correct += 1
+	else:
+		if y[i] < y[i + 1]:
+			correct += 1
+
+error_rate = (correct * 1.0) / ((size - training_size) / 2)
+print 'Success rate: ', error_rate

@@ -86,7 +86,7 @@ y_predict = clf.predict(x_[training_size:size,:])
 
 print 'Calculating error...'
 error_rate = error.calc_error(y_predict, y[training_size:size])
-print 'Success rate: ', error_rate
+print 'Success rate for Regression: ', error_rate
 
 # Classification set up
 y_home = []
@@ -128,7 +128,7 @@ for i in range(training_size, size, 2):
 			correct += 1
 
 error_rate = (correct * 1.0) / ((size - training_size) / 2)
-print 'Success rate: ', error_rate
+print 'Success rate for QDA: ', error_rate
 
 # --- SVM
 clf  =svm.SVC(kernel="sigmoid", degree=4)
@@ -152,7 +152,7 @@ for i in range(training_size, size, 2):
 			correct += 1
 
 error_rate = (correct * 1.0) / ((size - training_size) / 2)
-print 'Success rate: ', error_rate
+print 'Success rate for SVM: ', error_rate
 
 # --- RandomForestClassifier ---
 clf = RandomForestClassifier(n_estimators=16)
@@ -176,4 +176,4 @@ for i in range(training_size, size, 2):
 			correct += 1
 
 error_rate = (correct * 1.0) / ((size - training_size) / 2)
-print 'Success rate: ', error_rate
+print 'Success rate for Random Forest: ', error_rate

@@ -1,4 +1,41 @@
 # Soccer Fixture Predictor
 Machine Learning program to predict soccer game results based off of the football-data.co.uk dataset.
 
-[embed]http://kevin.velci.ch/Predicting_Soccer_Match_Results.pdf[/embded]
+[Read full results here.](http://kevin.velci.ch/Predicting_Soccer_Match_Results.pdf)
+
+## Required Libraries
+This program is dependent on the python libraries: **xlrd** for parsing the excel data files, **scikit-learn** and **SciPy** for implementing the machine learning algorithms.
+
+## How To Run
+#### 1. Install Python
+To install python, download and install a python version from [here.](https://www.python.org/downloads/)
+
+#### 2. Install pip
+Next, in order to download the required libraries, install pip following the directions at [pypa.io](https://pip.pypa.io/en/stable/installing/).
+
+#### 3. Install xlrd
+Once pip is installed correctly, in order to install the xlrd library simply run the following command:
+```
+pip install xlrd
+```
+
+#### 4. Install scikit-learn
+Next, install scikit-learn using the following command:
+```
+pip install sklearn
+```
+
+#### 5.Install SciPy
+Lastly, install SciPy using the following command:
+```
+pip install scipy
+```
+
+#### 6. Download Files
+
+#### 7. Edit Main, and Run
+To run the program, in the main directory of the project, run the following command:
+```
+python main.py
+```
+You can also dig around, editing the hyperparameters and the range of the inputs given to the algorithms in order to achieve differing results.

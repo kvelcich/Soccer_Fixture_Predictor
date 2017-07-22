@@ -2,6 +2,7 @@
 Machine Learning program to predict soccer game results based off of the football-data.co.uk dataset.
 
 Below shows the final error rates for the different learning methods used after optimization:
+
 | SVM Linear | SVM RBF | Polynomial Regression | Random Forests | SVM Poly | QDA | SVM Sigmoid |
 | --- | --- | --- | --- | --- | --- | --- |
 | 42.49% | 43.14% | 44.21% | 44.31% | 46.49% | 48.97% | 58.7% |

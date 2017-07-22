@@ -32,6 +32,10 @@ pip install scipy
 ```
 
 #### 6. Download Files
+You can download this project by using the following command:
+```
+git clone https://github.com/kvelcich/Soccer_Fixture_Predictor
+```
 
 #### 7. Edit Main, and Run
 To run the program, in the main directory of the project, run the following command:

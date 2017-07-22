@@ -1,5 +1,5 @@
 # Soccer Fixture Predictor
-Machine Learning program to predict soccer game results based off of the football-data.co.uk dataset.
+Machine Learning program to predict soccer game results using the football-data.co.uk dataset for training.
 
 Below shows the final error rates for the different learning methods used after optimization:
 

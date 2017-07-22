@@ -7,6 +7,9 @@ Below shows the final error rates for the different learning methods used after 
 | --- | --- | --- | --- | --- | --- | --- |
 | 42.49% | 43.14% | 44.21% | 44.31% | 46.49% | 48.97% | 58.7% |
 
+![Alt text](http://kevin.velci.ch/Results.png)
+
+
 [Read full setup, results and analysis here.](http://kevin.velci.ch/Predicting_Soccer_Match_Results.pdf)
 
 ## Required Libraries

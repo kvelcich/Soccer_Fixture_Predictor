@@ -3,6 +3,7 @@ Machine Learning program to predict soccer game results based off of the footbal
 
 Below shows the final error rates for the different learning methods used after optimization:
 | SVM Linear | SVM RBF | Polynomial Regression | Random Forests | SVM Poly | QDA | SVM Sigmoid |
+| --- | --- | --- | --- | --- | --- | --- |
 | 42.49% | 43.14% | 44.21% | 44.31% | 46.49% | 48.97% | 58.7% |
 
 [Read full setup, results and analysis here.](http://kevin.velci.ch/Predicting_Soccer_Match_Results.pdf)

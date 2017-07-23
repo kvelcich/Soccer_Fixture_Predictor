@@ -34,7 +34,7 @@ Next, install scikit-learn using the following command:
 pip install sklearn
 ```
 
-#### 5.Install SciPy
+#### 5. Install SciPy
 Lastly, install SciPy using the following command:
 ```
 pip install scipy
